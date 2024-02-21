@@ -20,10 +20,10 @@ function App() {
         <Routes>
           <Route
             exact path="/login"
-            element={<Login />}/>
+            element={<Login />} />
           <Route exact path="/aboutus" element={<About />} />
         </Routes>
-        <News/>
+        <News pageSize={8} />
       </Router >
     </>
   );
