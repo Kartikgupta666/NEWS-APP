@@ -26,10 +26,13 @@ export class NavBar extends Component {
                                         Catagories
                                     </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><Link className="dropdown-item" to="/">Action</Link></li>
-                                        <li><Link className="dropdown-item" to="/">Another action</Link></li>
-                                        <li><hr className="dropdown-divider" /></li>
-                                        <li><Link className="dropdown-item" to="/">Something else here</Link></li>
+                                        <li><Link className="dropdown-item" to="/business">Business</Link></li>
+                                        <li><Link className="dropdown-item" to="/entertainment">Entertainment</Link></li>
+                                        <li><Link className="dropdown-item" to="/general">General</Link></li>
+                                        <li><Link className="dropdown-item" to="/health">Health</Link></li>
+                                        <li><Link className="dropdown-item" to="/science">Science</Link></li>
+                                        <li><Link className="dropdown-item" to="/sports">Sports</Link></li>
+                                        <li><Link className="dropdown-item" to="/technology">Technology</Link></li>
                                     </ul>
                                 </li>
 
