@@ -55,6 +55,25 @@ export class News extends Component {
 
             <div className="container my-3">
                 <h1 className='text-center'>N.E.W.S - Top Headlines</h1>
+                <hr />
+                <label htmlFor="select">Title :  </label>
+                &nbsp;
+                <select name="" id="select">
+                    <option value="">Top Headlines</option>
+                    <option value="">Sports</option>
+                    <option value="">Politics</option>
+                    <option value="">Technical</option>
+                </select>
+
+                &nbsp;
+                <label htmlFor="select">Country :  </label>
+                &nbsp;
+                <select name="" id="select">
+                    <option value="">India</option>
+                    <option value="">U.S</option>
+                    <option value="">Australia</option>
+                    <option value="">Europe</option>
+                </select>
                 {this.state.loading && <Spinner />}
                 <div className="row">
                     {this.state.articles.map((element) => {

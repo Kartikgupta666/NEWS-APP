@@ -9,6 +9,8 @@
     border: 4px solid grey;
 
     border-top-color: red;
+    border-left-color: red;
+    border-rigth-color: red;
 
     animation: spin 1s linear infinite;
 
