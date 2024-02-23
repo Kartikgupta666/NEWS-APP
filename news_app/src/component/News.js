@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
+import Footer from './Footer'
 
 export class News extends Component {
 
@@ -89,6 +90,7 @@ export class News extends Component {
                         <button disabled={(this.state.page > Math.ceil(this.state.totalResults / this.props.pageSize))} className="btn btn-dark" onClick={this.handelnextclick} >Next &rarr;</button>
                     </div>
                 </div>
+                <Footer/>
             </>
         )
     }
