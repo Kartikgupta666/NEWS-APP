@@ -4,7 +4,7 @@ import NavBar from './component/NavBar';
 import Login from './component/Login';
 import About from './component/About';
 import News from './component/News';
-
+import Footer from "./component/Footer";
 import {
   BrowserRouter as Router,
   Route,
@@ -30,6 +30,7 @@ function App() {
           <Route exact path="/technology" element={<News key="technology" pageSize={8} country="in" cateogry='technology' />}></Route>
         </Routes>
       </Router >
+      <Footer />
     </>
   );
 }
