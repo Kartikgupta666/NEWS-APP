@@ -19,17 +19,18 @@ export class News extends Component {
         pageSize: PropTypes.number,
         cateogry: PropTypes.string,
     };
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             articles: [],
             loading: false,
             page: 1,
-
-
         }
+        document.title = `N.E.W.S - ${this.capitalizeFirstLetter(this.props.cateogry)}`
     }
-
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     async componentDidMount() {
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.cateogry}&apiKey=ba4612a07e41422f87584493c9260c2e&page=1&pageSize=${this.props.pageSize}`
         this.setState({ loading: true });
@@ -71,7 +72,7 @@ export class News extends Component {
         return (
             <>
                 <div className="container my-3">
-                    <h1 className='text-center'>N.E.W.S - {this.props.cateogry}</h1>
+                    <h1 className='text-center'>N.E.W.S - {this.capitalizeFirstLetter(this.props.cateogry)}</h1>
                     <hr />
 
                     {this.state.loading && <Spinner />}
@@ -86,7 +87,6 @@ export class News extends Component {
                     <div className=" d-flex container justify-content-between my-3">
                         <button disabled={this.state.page <= 1} className="btn btn-dark" onClick={this.handelprevclick}>&larr; Previous</button>
                         <button disabled={(this.state.page > Math.ceil(this.state.totalResults / this.props.pageSize))} className="btn btn-dark" onClick={this.handelnextclick} >Next &rarr;</button>
-
                     </div>
                 </div>
             </>
