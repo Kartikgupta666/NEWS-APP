@@ -21,7 +21,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/aboutus" element={<About />} />
           <Route exact path="/Signup" element={<Signup />} />
-          <Route exact path="/general" element={<News key="general" pageSize={8} country="in" cateogry='general' />}></Route>
+          <Route exact path="/" element={<News key="general" pageSize={8} country="in" cateogry='general' />}></Route>
           <Route exact path="/business" element={<News key="business" pageSize={8} country="in" cateogry='business' />}></Route>
           <Route exact path="/health" element={<News key="health" pageSize={8} country="in" cateogry='health' />}></Route>
           <Route exact path="/entertainment" element={<News key="entertainment" pageSize={8} country="in" cateogry='entertainment' />}></Route>
