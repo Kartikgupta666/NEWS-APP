@@ -18,9 +18,7 @@ export class NavBar extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link active" to="/aboutus">About Us</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link " to="/login">Login</Link>
-                                </li>
+
                                 <li className="nav-item dropdown">
                                     <Link className="nav-link active dropdown-toggle" to="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Catagories
@@ -34,12 +32,14 @@ export class NavBar extends Component {
                                         <li><Link className="dropdown-item" to="/technology">Technology</Link></li>
                                     </ul>
                                 </li>
-                                
+                                <li className="nav-item">
+                                    <Link className="nav-link " to="/login">Login</Link>
+                                </li>
                             </ul>
                             {/* <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                                </div> */}
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                            </div> */}
                         </div>
                     </div>
                 </nav>
