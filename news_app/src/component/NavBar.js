@@ -34,9 +34,12 @@ export class NavBar extends Component {
                                         <li><Link className="dropdown-item" to="/technology">Technology</Link></li>
                                     </ul>
                                 </li>
-
+                                
                             </ul>
-
+                            {/* <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                                </div> */}
                         </div>
                     </div>
                 </nav>
