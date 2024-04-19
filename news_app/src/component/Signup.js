@@ -1,8 +1,58 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
+import Alert from './Alert'
+export default function Signup() {
+    const history = useNavigate();
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [alert, setAlert] = useState(null)
 
-export class Signup extends Component {
-    render() {
-        return (
+    async function submit(e) {
+        e.preventDefault();
+        try {
+            await axios.post("http://localhost:8000/Signup", {
+
+                name: name,
+                email: email,
+                password: password
+            })
+                .then(res => {
+                    if (res.data === "exist") {
+                       showAlert("user already exist", "success");
+                        
+                    }
+                    else if (res.data !== "exist") {
+                        
+                        history("/",/* {uname : name}*/)
+                    }
+                })
+                .catch(e => {
+                    alert("wrong details")
+                    console.log(e);
+                })
+        }
+        catch (e) {
+            console.log(e)
+        }
+
+    }
+    const showAlert = (message, type) => {
+        setAlert({
+            msg: message,
+            types: type
+        })
+        setTimeout(() => {
+            setAlert(null);
+        }, 2000);
+    }
+
+
+    return (
+        <>
+            <Alert alert={alert} />
             <div style={{
                 "position": "relative",
                 "height": "500px",
@@ -11,28 +61,26 @@ export class Signup extends Component {
 
             }}>
                 <div className=" my-5 " >
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">UserName</label>
+                        <input type="text" className="form-control" onChange={(e) => { setName(e.target.value) }} id="name" placeholder="Enter UserName" />
+                    </div>
                     <div className="mb-3 ">
-                        <label for="email" className="form-label">Email address</label>
-                        <input type="email" className="form-control" id="email" placeholder="name@example.com" />
+                        <label htmlFor="email" className="form-label">Email address</label>
+                        <input type="email" className="form-control" onChange={(e) => { setEmail(e.target.value) }} id="email" placeholder="name@example.com" />
                     </div>
                     <div className="mb-3">
-                        <label for="name" className="form-label">UserName</label>
-                        <input type="text" className="form-control" id="name" placeholder="Enter UserName" />
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input type="password" className="form-control" onChange={(e) => { setPassword(e.target.value) }} id="password" placeholder="Enter Password" />
                     </div>
-                    <div className="mb-3">
-                        <label for="password" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="password" placeholder="Enter Password" />
-                    </div>
-                    <div className="mb-3">
-                        <label for="password" className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" id="password" placeholder="Enter Confirm Password" />
-                    </div>
-                    <input class="btn btn-primary" type="submit" value="Create Account" />
+                    <input className="btn btn-primary" type="submit" onClick={submit} value="Create Account" />
+                    <p>
+                        have an account? <Link to="/login">Login</Link>
+                    </p>
+
 
                 </div>
             </div>
-        )
-    }
+        </>
+    )
 }
-
-export default Signup

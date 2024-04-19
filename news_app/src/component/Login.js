@@ -1,9 +1,59 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-export class Login extends Component {
-  render() {
-    return (
-      <>
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import Alert from './Alert';
+
+export default function Login() {
+
+  const history = useNavigate();
+  const [email, setEmail] = useState('')
+  const [Password, setPassword] = useState('')
+  const [alert, setAlert] = useState(null)
+  async function submit(e) {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:8000/login", {
+
+        email: email,
+        password: Password
+      })
+        .then(res => {
+          if (res.data === "exist") {
+            history("/", /*{ uname : email }*/)
+          }
+          else if (res.data !== "exist") {
+
+            showAlert("user in not signup", "danger");
+          }
+        })
+        .catch(e => {
+          showAlert("Wronge Details", 'danger')
+          console.log(e);
+        })
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      types: type
+    })
+    setTimeout(() => {
+      setAlert(null);
+    }, 1000);
+  }
+
+
+  return (
+    <>
+      <Alert alert={alert} />
+      <form action="POST">
+
         <div style={{
           "position": "relative",
           "height": "500px",
@@ -12,23 +62,25 @@ export class Login extends Component {
 
         }}>
           <div className=" my-5 " >
+
             <div className="mb-3 ">
-              <label for="email" className="form-label">Email address</label>
-              <input type="email" className="form-control" id="email" placeholder="name@example.com" />
+              <label htmlFor="email" className="form-label">Email address</label>
+              <input type="email" className="form-control" onChange={(e) => { setEmail(e.target.value) }} id="email" placeholder="name@example.com" />
             </div>
             <div className="mb-3">
-              <label for="password" className="form-label">Password</label>
-              <input type="password" className="form-control" id="password" placeholder="Enter Password" />
+              <label htmlFor="password" className="form-label">Password</label>
+              <input type="password" className="form-control" id="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Enter Password" />
             </div>
-            <input class="btn btn-primary" type="submit" value="Log in" />
+            <input className="btn btn-primary" type="submit" onClick={submit} value="Log in" />
             &nbsp;&nbsp;&nbsp;
-            <Link class="btn btn-primary" to="/Signup" role="button">Sign up</Link>
+            <Link className="btn btn-primary" to="/Signup" role="button">Sign up</Link>
 
           </div>
         </div>
-      </>
-    )
-  }
+      </form>
+    </>
+  );
 }
 
-export default Login
+
+

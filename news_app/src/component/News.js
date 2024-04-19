@@ -3,7 +3,7 @@ import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
 import Footer from './Footer'
-
+import Navbar from './NavBar'
 export class News extends Component {
 
     static defaultProps = {
@@ -72,8 +72,10 @@ export class News extends Component {
 
         return (
             <>
+            <Navbar/>
                 <div className="container my-3">
                     <h1 className='text-center'>N.E.W.S - {this.capitalizeFirstLetter(this.props.cateogry)}</h1>
+                    
                     <hr />
 
                     {this.state.loading && <Spinner />}
