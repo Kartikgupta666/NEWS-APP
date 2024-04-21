@@ -19,12 +19,12 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
  
     try {
-        const check = await collection.findOne({ email: email, password: password })
+        const userInfo = await collection.findOne({ email: email, password: password })
         if (check) {
-            res.json("exist")
+            res.json(userInfo);
         }
         else {
-            res.json("not exist")
+            res.json({erro: "not exist"});
         }
     }
     catch (e) {
@@ -44,13 +44,13 @@ app.post("/Signup", async (req, res) => {
     }
 
     try {
-        const check = await collection.findOne({ email: email, password: password })
+        const userInfo = await collection.findOne({ email: email, password: password })
         if (check) {
-            res.json("exist")
+            res.json({error: "already exits"});
         }
         else {
-            res.json("not exist")
             await collection.insertMany([data]);
+            res.json({userInfo: data});
         }
     }
     catch (e) {
@@ -58,8 +58,4 @@ app.post("/Signup", async (req, res) => {
 
     }
 })
-
-
-
-
 app.listen(port, () => console.log(`Server is running on ${port}`));
