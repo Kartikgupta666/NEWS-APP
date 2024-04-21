@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-// import axios from "axios"
-export default function NavBar() {
-//     const [UName, setUName] = useState();
-//     useEffect(() => {
-//         axios.get('mongodb+srv://gofood:123@cluster0.cahbfl3.mongodb.net/gofoodmern-m?retryWrites=true&w=majority')
-// .then(UName => setUName(data))
-// .catch(err => console.log(err))
-//     })
+export default function NavBar(props) {
     return (
         <div className='sticky-top'>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -44,7 +37,7 @@ export default function NavBar() {
 
                         </ul>
                         {/* <div class="nav-item">
-                            <Link className="nav-link fs-5" style={{ "color": "white" }} to="/">{UName.name} </Link>
+                            <Link className="nav-link fs-5" style={{ "color": "white" }} to="/">{props.userName} </Link>
                         </div> */}
                     </div>
                 </div>
