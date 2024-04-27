@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.connect('mongodb+srv://gofood:123@cluster0.cahbfl3.mongodb.net/gofoodmern-m?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://gofood:123@cluster0.cahbfl3.mongodb.net/NEWSAPP?retryWrites=true&w=majority')
     .then(() => {
         console.log("mongodb connected");
 
@@ -25,7 +25,7 @@ const newschema = new mongoose.Schema({
     }
 })
 
-const collection = mongoose.model("collection", newschema)
+const collection = mongoose.model("user", newschema)
 module.exports = collection;
 
 

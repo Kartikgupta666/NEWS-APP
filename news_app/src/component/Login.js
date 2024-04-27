@@ -19,13 +19,16 @@ export default function Login() {
         password: Password
       })
         .then(res => {
-          if (res.data === "exist") {
-            history("/", /*{ uname : email }*/)
+          if (res.data.email === email && res.data.password === Password) {
+            history("/")
+            // console.log(res.data)
           }
-          else if (res.data !== "exist") {
 
-            showAlert("user in not signup", "danger");
+          else if (res.data.email !== email && res.data.password !== Password) {
+
+            showAlert("Eighter Email or Password is incorrect", "danger");
           }
+
         })
         .catch(e => {
           showAlert("Wronge Details", 'danger')

@@ -26,8 +26,8 @@ export default function Signup() {
                     }
                     else if (res.data !== "exist") {
                         
-                        history("/")
-                        console.log(name)
+                        history("/login")
+                        // console.log(name)
                     }
                 })
                 .catch(e => {

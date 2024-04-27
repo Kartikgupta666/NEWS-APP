@@ -10,21 +10,20 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 app.get("/", cors(), (req, res) => {
-    res.send("hello");
-
-
+    
 })
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
- 
+
     try {
         const userInfo = await collection.findOne({ email: email, password: password })
-        if (check) {
+        if (userInfo) {
             res.json(userInfo);
+           
         }
         else {
-            res.json({erro: "not exist"});
+            res.json("not exist");
         }
     }
     catch (e) {
@@ -44,13 +43,15 @@ app.post("/Signup", async (req, res) => {
     }
 
     try {
-        const userInfo = await collection.findOne({ email: email, password: password })
-        if (check) {
-            res.json({error: "already exits"});
+        const userInfo = await collection.findOne({ email: email })
+        if (userInfo) {
+            res.json("exist")
+
+
         }
         else {
+            res.json("not exist")
             await collection.insertMany([data]);
-            res.json({userInfo: data});
         }
     }
     catch (e) {
@@ -59,3 +60,4 @@ app.post("/Signup", async (req, res) => {
     }
 })
 app.listen(port, () => console.log(`Server is running on ${port}`));
+
