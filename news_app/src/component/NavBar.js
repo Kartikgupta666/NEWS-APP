@@ -1,29 +1,12 @@
-import React  from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-// import axios from 'axios';
-// import {useEffect , useState} from react
+import {useSelector} from 'react-redux'
+
 
 export default function NavBar() {
+const name = useSelector(state => state.name)
 
-    // show the name of user on the navbar {pending}
-//     const [Uname, setUname] = useState("guest");
-
-//   useEffect(() => {
-//     // MongoDB se user object retrieve karne ka API endpoint
-//     const fetchUser = async () => {
-//       try {
-//         const res = await axios.get('http://localhost:8000/login');
-//         setUname(res.data);
-//         console.log(res.data) // MongoDB se retrieve kiya gaya user object ko state me store karenge
-//       } catch (error) {
-//         console.error('Error occurred while fetching user:', error);
-//       }
-//     };
-
-//     fetchUser();
-//   }, []);
-
-//   ***********************************************************
+    //   ***********************************************************
     return (
         <div className='sticky-top'>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -59,9 +42,9 @@ export default function NavBar() {
                             </li>
 
                         </ul>
-                        {/* <div className="nav-item">
-                            <Link className="nav-link fs-5" style={{ "color": "white" }} to="/">{Uname} </Link>
-                        </div> */}
+                        <div className="nav-item">
+                            <Link className="nav-link fs-5" style={{ "color": "white" }} to="/"> {name} </Link>
+                        </div>
                     </div>
                 </div>
             </nav>

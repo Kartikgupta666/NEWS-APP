@@ -3,8 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import Alert from './Alert';
+import { useDispatch } from 'react-redux';
+import { actioncreators } from '../state/index'
+import { bindActionCreators } from 'redux';
+
+//with out redux the process to pass data from one component to another is impossible so we use redux , redux-thunk , react-redux all packages are must 
 
 export default function Login() {
+  const dispatch = useDispatch()
+  const { showname } = bindActionCreators(actioncreators, dispatch)
+
 
   const history = useNavigate();
   const [email, setEmail] = useState('')
@@ -21,7 +29,8 @@ export default function Login() {
         .then(res => {
           if (res.data.email === email && res.data.password === Password) {
             history("/")
-            // console.log(res.data)
+            showname(res.data.name)
+
           }
 
           else if (res.data.email !== email && res.data.password !== Password) {
