@@ -1,10 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import {useSelector} from 'react-redux'
-
+import React, { useContext, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import maincontext from '../context/maincontext'
 
 export default function NavBar() {
-const name = useSelector(state => state.name)
+    let location = useLocation();
+    let history = useNavigate();
+    const { user, getUser } = useContext(maincontext);
+
+    useEffect(() => {
+        getUser();
+        
+        // eslint-disable-next-line
+    }, [])
+
+    const logout = () => {
+        localStorage.removeItem('token')
+        history('/')
+    }
+    // console.log(user)
 
     //   ***********************************************************
     return (
@@ -37,14 +50,26 @@ const name = useSelector(state => state.name)
                                     <li><Link className="dropdown-item" to="/technology">Technology</Link></li>
                                 </ul>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link " to="/login">Login</Link>
-                            </li>
+                            {!localStorage.getItem('token') ? (
+                                <li className="nav-item">
 
+                                    <Link className={`nav-link ${location.pathname === "/Login" ? "active" : ""}`} to="/Login">Login</Link>
+
+                                </li>) : (
+                                <li className="nav-item">
+
+                                    <Link className={`nav-link ${location.pathname === "/Logout" ? "active" : ""}`} onClick={logout} to="/Login">Logout</Link>
+
+                                </li>)}
+
+
+                            {
+                                localStorage.getItem('token') ? <li className="nav-item">
+                                    <Link className="nav-link text-capitalize active" to="#" tabIndex="-1" aria-disabled="true"> {user.name} </Link>
+                                </li> : <li className="nav-item">
+                                    <Link className="nav-link text-capitalize active" to="#" tabIndex="-1" aria-disabled="true"> {"Guest"} </Link>
+                                </li>}
                         </ul>
-                        <div className="nav-item">
-                            <Link className="nav-link fs-5" style={{ "color": "white" }} to="/"> {name} </Link>
-                        </div>
                     </div>
                 </div>
             </nav>

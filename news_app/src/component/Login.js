@@ -3,15 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import Alert from './Alert';
-import { useDispatch } from 'react-redux';
-import { actioncreators } from '../state/index'
-import { bindActionCreators } from 'redux';
 
 //with out redux the process to pass data from one component to another is impossible so we use redux , redux-thunk , react-redux all packages are must 
 
 export default function Login() {
-  const dispatch = useDispatch()
-  const { showname } = bindActionCreators(actioncreators, dispatch)
 
 
   const history = useNavigate();
@@ -24,16 +19,22 @@ export default function Login() {
       await axios.post("http://localhost:8000/login", {
 
         email: email,
-        password: Password
+        password: Password, 
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
         .then(res => {
-          if (res.data.email === email && res.data.password === Password) {
+
+          // console.log(res)
+          if (res.data.userInfo.email === email && res.data.userInfo.password === Password) {
             history("/")
-            showname(res.data.name)
+            localStorage.setItem('token', res.data.authToken)
+            // console.log("done")
 
           }
 
-          else if (res.data.email !== email && res.data.password !== Password) {
+          else if (res.data.userInfo.email !== email && res.data.userInfo.password !== Password) {
 
             showAlert("Eighter Email or Password is incorrect", "danger");
           }

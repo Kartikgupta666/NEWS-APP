@@ -1,63 +1,70 @@
-const express = require('express')
-const cors = require('cors')
-const collection = require('./db.js');
+const express = require('express');
+const cors = require('cors');
+const User = require('./db.js');
 const app = express();
 const port = 8000;
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = "shhh";
+const fetchuser = require('./middleware/fetchuser.js');
 
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cors())
-
-app.get("/", cors(), (req, res) => {
-    
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const userInfo = await collection.findOne({ email: email, password: password })
+        const userInfo = await User.findOne({ email, password });
         if (userInfo) {
-            res.json(userInfo);
-           
+            const authToken = jwt.sign({ id: userInfo.id }, JWT_SECRET);
+            // console.log(userInfo, authToken);
+            return res.json({ userInfo, authToken });
+        } else {
+            return res.status(404).json({ message: "User not found" });
         }
-        else {
-            res.json("not exist");
-        }
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: "Internal server error" });
     }
-    catch (e) {
-        res.json("not exist")
+});
 
-    }
-})
-
-
-app.post("/Signup", async (req, res) => {
+app.post("/signup", async (req, res) => {
     const { name, email, password } = req.body;
 
     const data = {
-        name: name,
-        email: email,
-        password: password
-    }
+        name,
+        email,
+        password
+    };
 
     try {
-        const userInfo = await collection.findOne({ email: email })
+        const userInfo = await User.findOne({ email });
         if (userInfo) {
-            res.json("exist")
-
-
+            return res.status(409).json({ message: "User already exists" });
+        } else {
+            await User.insertMany([data]);
+            return res.status(201).json({ message: "User created successfully" });
         }
-        else {
-            res.json("not exist")
-            await collection.insertMany([data]);
-        }
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: "Internal server error" });
     }
-    catch (e) {
-        res.json("not exist")
+});
 
+app.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select('-password');
+        if (user) {
+            return res.json(user);
+        } else {
+            return res.status(404).json({ message: "User not found" });
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Internal server error" });
     }
-})
+});
+
 app.listen(port, () => console.log(`Server is running on ${port}`));
-

@@ -8,9 +8,9 @@ mongoose.connect('mongodb+srv://gofood:123@cluster0.cahbfl3.mongodb.net/NEWSAPP?
         console.log("failed");
     })
 
+const { Schema } = mongoose;
 
-
-const newschema = new mongoose.Schema({
+const UserSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -25,8 +25,8 @@ const newschema = new mongoose.Schema({
     }
 })
 
-const collection = mongoose.model("user", newschema)
-module.exports = collection;
+module.exports = mongoose.model("User", UserSchema)
+
 
 
 

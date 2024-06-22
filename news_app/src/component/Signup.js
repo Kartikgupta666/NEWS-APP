@@ -17,21 +17,24 @@ export default function Signup() {
 
                 name: name,
                 email: email,
-                password: password
+                password: password,
+                headers: {
+                    "Content-Type": "application/json"
+                }
             })
                 .then(res => {
                     if (res.data === "exist") {
-                       showAlert("user already exist", "success");
-                        
+                        showAlert("user already exist", "success");
+
                     }
                     else if (res.data !== "exist") {
-                        
+
                         history("/login")
-                        // console.log(name)
+                    
                     }
                 })
                 .catch(e => {
-                    alert("wrong details")
+                    // showAlert("wrong details")
                     console.log(e);
                 })
         }
